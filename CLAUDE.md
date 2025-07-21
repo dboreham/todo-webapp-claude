@@ -94,6 +94,7 @@ The todo application includes:
 3. **Type Safety**: Define interfaces for all data structures, avoid `any` type
 4. **Error Handling**: Implement proper error boundaries and user feedback
 5. **Accessibility**: Ensure ARIA labels and keyboard navigation support
+6. **File Formatting**: All files must end with a trailing newline character
 
 ## Architecture Decisions
 
