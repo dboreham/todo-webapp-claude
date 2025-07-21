@@ -23,7 +23,10 @@
   },
   "homepage": "https://github.com/dboreham/todo-webapp-claude#readme",
   "dependencies": {
+    "@types/pg": "^8.15.4",
+    "dotenv": "^17.2.0",
     "next": "^15.4.2",
+    "pg": "^8.16.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },

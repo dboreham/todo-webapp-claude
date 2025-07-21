@@ -1,6 +1,6 @@
 # Todo Web App
 
-A modern todo application built with Next.js, React, TypeScript, and Claude AI assistance.
+A modern todo application built with Next.js, React, TypeScript, PostgreSQL, and Claude AI assistance.
 
 ## Features
 
@@ -8,9 +8,11 @@ A modern todo application built with Next.js, React, TypeScript, and Claude AI a
 - 📝 Optional descriptions for todos
 - ✓ Mark todos as complete/incomplete
 - 🔍 Filter by status (all, active, completed)
-- 💾 Local storage persistence
+- 💾 Server-side persistence with PostgreSQL
+- 🔄 RESTful API backend
 - 📱 Responsive design
 - ⌨️ Keyboard accessible
+- 🚨 Error handling and user feedback
 
 ## Tech Stack
 
@@ -18,7 +20,8 @@ A modern todo application built with Next.js, React, TypeScript, and Claude AI a
 - **Language**: TypeScript
 - **UI Library**: React 18+
 - **Styling**: CSS Modules
-- **Storage**: Browser Local Storage
+- **Database**: PostgreSQL
+- **API**: Next.js API Routes
 
 ## Getting Started
 
@@ -26,6 +29,19 @@ A modern todo application built with Next.js, React, TypeScript, and Claude AI a
 
 - Node.js 18+ installed
 - npm or yarn package manager
+- PostgreSQL 12+ installed and running
+
+### Database Setup
+
+1. Create a PostgreSQL database:
+```sql
+CREATE DATABASE todo_app;
+```
+
+2. Update the database connection string in `.env.local`:
+```
+DATABASE_URL=postgresql://your_username:your_password@localhost:5432/todo_app
+```
 
 ### Installation
 
@@ -59,11 +75,27 @@ npm run dev
 
 ```
 ├── app/              # Next.js app directory
+│   ├── api/         # API routes
+│   │   └── todos/   # Todo CRUD endpoints
+│   ├── layout.tsx   # Root layout
+│   └── page.tsx     # Main todo page
 ├── components/       # React components
 ├── lib/             # Utilities and types
+│   ├── api.ts       # Frontend API client
+│   ├── db/          # Database utilities
+│   │   ├── pool.ts  # PostgreSQL connection pool
+│   │   └── schema.sql # Database schema
+│   └── types.ts     # TypeScript definitions
 ├── public/          # Static assets
 └── CLAUDE.md        # Claude AI guidance file
 ```
+
+## API Endpoints
+
+- `GET /api/todos` - Get all todos
+- `POST /api/todos` - Create a new todo
+- `PUT /api/todos/[id]` - Update a todo
+- `DELETE /api/todos/[id]` - Delete a todo
 
 ## Contributing
 

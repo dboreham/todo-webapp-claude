@@ -13,7 +13,9 @@ This is a todo web application built with TypeScript, React, and Next.js. The ap
 - **Meta-framework**: Next.js 14+ (App Router)
 - **Styling**: CSS Modules (default Next.js approach)
 - **State Management**: React hooks (useState, useReducer)
-- **Data Persistence**: Local Storage (client-side)
+- **Database**: PostgreSQL
+- **Data Persistence**: Server-side with PostgreSQL
+- **API**: RESTful API using Next.js API Routes
 
 ## Commands
 
@@ -42,8 +44,13 @@ npm run type-check
 ```
 todo-webapp-claude/
 ├── app/                    # Next.js App Router directory
+│   ├── api/               # API routes
+│   │   └── todos/         # Todo CRUD endpoints
+│   │       ├── route.ts   # GET all, POST new todo
+│   │       └── [id]/      
+│   │           └── route.ts # PUT update, DELETE todo
 │   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Home page
+│   ├── page.tsx           # Home page (with API integration)
 │   └── globals.css        # Global styles
 ├── components/            # React components
 │   ├── TodoList.tsx      # Todo list display
@@ -51,9 +58,16 @@ todo-webapp-claude/
 │   ├── TodoForm.tsx      # Form for adding todos
 │   └── TodoFilter.tsx    # Filter controls
 ├── lib/                   # Utility functions and types
+│   ├── api.ts            # Frontend API client
+│   ├── db/               # Database utilities
+│   │   ├── pool.ts       # PostgreSQL connection pool
+│   │   ├── init.ts       # Database initialization
+│   │   └── schema.sql    # Database schema
 │   ├── types.ts          # TypeScript type definitions
-│   └── storage.ts        # Local storage utilities
+│   └── storage.ts        # Local storage utilities (deprecated)
 ├── public/               # Static assets
+├── .env.local            # Environment variables (create from .env.example)
+├── .env.example          # Example environment configuration
 ├── package.json          # Dependencies and scripts
 ├── tsconfig.json         # TypeScript configuration
 ├── next.config.js        # Next.js configuration
@@ -68,7 +82,9 @@ The todo application includes:
 - Editing existing todos inline
 - Deleting todos with confirmation
 - Filtering todos by status (all, active, completed)
-- Persisting todos in browser's local storage
+- Persisting todos in PostgreSQL database
+- RESTful API for all CRUD operations
+- Error handling with user feedback
 - Responsive design for mobile and desktop
 
 ## Development Guidelines
@@ -83,5 +99,15 @@ The todo application includes:
 
 - **App Router**: Using Next.js App Router for better performance and server components
 - **Client Components**: Todo interactions require client-side state, use `"use client"` directive
-- **Local Storage**: Simple persistence without backend complexity
+- **PostgreSQL**: Robust, scalable database for persistent storage
+- **API Routes**: Built-in Next.js API routes for backend logic
+- **Connection Pooling**: Using pg Pool for efficient database connections
+- **UUID Primary Keys**: Using PostgreSQL's gen_random_uuid() for unique IDs
 - **CSS Modules**: Scoped styling without additional dependencies
+
+## Database Setup
+
+1. Ensure PostgreSQL is installed and running
+2. Create database: `CREATE DATABASE todo_app;`
+3. Configure `.env.local` with your database URL
+4. The schema will be automatically created on first API request
